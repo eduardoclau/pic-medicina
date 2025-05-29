@@ -2,11 +2,11 @@ import streamlit as st
 from datetime import datetime
 
 # Configuração da página
-st.set_page_config(page_title="PIC - MAXIPAS", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="PIC - FORTNEER", page_icon="🏥", layout="wide")
 
 # Cabeçalho
 st.title("PIC - Protocolo de Interpretação e Conduta Médica")
-st.subheader("MAXIPAS Saúde Ocupacional - Criciúma (SC)")
+st.subheader("FORTNEER - ASSESSORIA PARA REGULARIZAÇÃO EMPRESARIAL (Sombrio & Morro da Fumaça)")
 st.markdown("---")
 
 # Menu lateral
@@ -27,21 +27,20 @@ if menu == "Introdução":
     st.header("Introdução")
     st.write("""
     A conduta médica para interpretação dos exames e definição de aptidão ao trabalho deve seguir critérios técnico-científicos, éticos e normativos. 
-    Este protocolo foi elaborado baseado nos preceitos éticos e na legislação vigente e tem por abrangência todos os atendimentos realizados por médicos em agendamentos feitos pela MAXIPAS CRICIÚMA ou por suas empresas clientes.
+    Este protocolo foi elaborado baseado nos preceitos éticos e na legislação vigente e tem por abrangência todos os atendimentos realizados por médicos em agendamentos feitos pela FORTNEER ou por suas empresas clientes.
     """)
     
     st.subheader("Princípios Gerais")
     st.write("""
     1. Os médicos examinadores devem seguir os critérios deste protocolo, em alinhamento às alíneas 'c' e 'd' do item 7.5.4 da NR-7 e ao § 1º do Art. 5º da Resolução 2323/2022 do CFM.
     2. É facultada a adoção de condutas diferentes das sugeridas, desde que justificadas e registradas no prontuário.
-    3. Em caso de dúvidas ou condutas diferentes, o médico deve contatar o responsável pela saúde ocupacional da MAXIPAS.
+    3. Em caso de dúvidas ou condutas diferentes, o médico deve contatar o responsável pela saúde ocupacional da FORTNEER.
     4. Os trabalhadores devem ser informados sobre os exames e seus resultados (conforme item 7.5.16 da NR-7).
     5. Observar toda a Resolução 2323/2022 do CFM, especialmente Art. 1º, Art. 2º e Art. 4º.
     """)
     
     st.subheader("Responsabilidades")
     st.write("""
-    - A MAXIPAS não custeia exames para controle médico geral não relacionado ao trabalho.
     - O médico pode solicitar repetição de exames ou novos exames para formação de convicção técnica.
     - Todas as condutas devem ser justificadas tecnicamente e discutidas com o médico responsável pelo PCMSO.
     """)
@@ -435,7 +434,7 @@ elif menu == "Manipuladores de Alimentos":
     **3. Outros achados:**
     - Analisar caso a caso
     - Pode manter ASO retido para solicitar exames ou relatórios
-    - Discutir com medicina do trabalho da MAXIPAS
+    - Discutir com medicina do trabalho da FORTNEER
     """)
 
 elif menu == "Doenças Relacionadas ao Trabalho":
