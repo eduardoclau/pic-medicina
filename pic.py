@@ -1,5 +1,7 @@
 import streamlit as st
 from datetime import datetime
+from reportlab.pdfgen import canvas
+from io import BytesIO
 
 # Configuração da página
 st.set_page_config(page_title="PIC - FORTNEER", page_icon="🏥", layout="wide")
@@ -547,11 +549,10 @@ elif menu == "Avaliação de PCD":
         deficiencia_mental = st.checkbox("Deficiência Mental")
         deficiencia_multipla = st.checkbox("Deficiência Múltipla")
         
-        if st.form_submit_button("Gerar Laudo PCD"):
+        submitted = st.form_submit_button("Gerar Laudo PCD")
+        
+        if submitted:
             # Criar um novo PDF com os dados preenchidos
-            from reportlab.pdfgen import canvas
-            from io import BytesIO
-            
             buffer = BytesIO()
             c = canvas.Canvas(buffer)
             
@@ -631,12 +632,14 @@ elif menu == "Avaliação de PCD":
             
             c.save()
             
-            buffer.seek(0)
+            pdf_bytes = buffer.getvalue()
+            buffer.close()
+            
             st.success("Laudo gerado com sucesso!")
             
             st.download_button(
                 label="Baixar Laudo PCD",
-                data=buffer,
+                data=pdf_bytes,
                 file_name=f"laudo_pcd_{nome.replace(' ', '_')}.pdf",
                 mime="application/pdf"
             )
