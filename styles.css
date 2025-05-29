@@ -1,0 +1,183 @@
+/* Cores principais */
+:root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --accent: #e74c3c;
+    --light-bg: #f8f9fa;
+    --dark-text: #2c3e50;
+    --light-text: #ecf0f1;
+}
+
+/* Estilos gerais */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+.header-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-top: -0.5rem;
+}
+
+.header-location {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Barra lateral */
+.sidebar-header {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+}
+
+.sidebar-header h3 {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.quick-info {
+    background-color: rgba(52, 152, 219, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.quick-info h4 {
+    margin-bottom: 0.3rem;
+    color: var(--primary);
+}
+
+/* Componentes de status */
+.status-box {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-box.green {
+    background-color: rgba(46, 204, 113, 0.1);
+    border-left: 4px solid #2ecc71;
+}
+
+.status-box.yellow {
+    background-color: rgba(241, 196, 15, 0.1);
+    border-left: 4px solid #f1c40f;
+}
+
+.status-box.red {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid #e74c3c;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-box.green .status-dot {
+    background-color: #2ecc71;
+}
+
+.status-box.yellow .status-dot {
+    background-color: #f1c40f;
+}
+
+.status-box.red .status-dot {
+    background-color: #e74c3c;
+}
+
+.status-text {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 25px);
+}
+
+/* Grid para exemplos */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.grid-item {
+    background-color: var(--light-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Caixas de informação */
+.info-box {
+    background-color: rgba(52, 152, 219, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    border-left: 4px solid var(--secondary);
+}
+
+/* Rodapé */
+.footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-logo img {
+    opacity: 0.7;
+}
+
+.footer-info h4 {
+    margin-bottom: 0.2rem;
+    color: var(--primary);
+}
+
+/* Melhorias nos formulários */
+.stTextInput input, .stTextArea textarea, .stSelectbox select {
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+}
+
+.stButton button {
+    background-color: var(--secondary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+}
+
+.stButton button:hover {
+    background-color: #2980b9 !important;
+}
+
+/* Abas */
+.stTabs [role="tablist"] {
+    margin-bottom: 1rem;
+}
+
+.stTabs [role="tab"] {
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px 4px 0 0 !important;
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: var(--secondary) !important;
+    color: white !important;
+}
