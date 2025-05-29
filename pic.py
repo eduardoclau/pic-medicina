@@ -540,6 +540,7 @@ elif menu == "Avaliação de PCD":
 # Rodapé
 st.markdown("---")
 st.write(""" 
-**FORTNEER - ASSESSORIA PARA REGULARIZAÇÃO EMPRESRIAL**
+**FORTNEER - ASSESSORIA PARA REGULARIZAÇÃO EMPRESARIAL**
+
 Atualizado em: 29 DE MAIO DE 2025  
 """)
