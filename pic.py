@@ -507,35 +507,139 @@ elif menu == "Avaliação de PCD":
     - IN SIT/MTE 98/2012
     """)
     
-    st.subheader("Laudo Caracterizador de Deficiência")
-    st.write("""
-    Deve conter no mínimo:
-    """)
-    
-    with st.expander("Conteúdo do Laudo"):
-        st.write("""
-        1. CID do diagnóstico
-        2. Origem da deficiência (congênita, acidente/doença ocupacional, comum, pós-operatório)
-        3. Descrição detalhada dos impedimentos nas funções e estruturas do corpo
-        4. Descrição das limitações nas atividades da vida diária e restrições sociais
-        5. Classificação do tipo de deficiência (física, auditiva, visual, intelectual, mental ou múltipla)
-        6. Conclusão da caracterização
-        7. Assinatura e carimbo do médico
-        8. Assinatura do empregado declarando ciência
-        """)
-    
-    st.subheader("Modelo de Laudo")
-    st.write("""
-    Preencher conforme modelo oficial disponível no sistema.
-    """)
-    
-    if st.button("Gerar Laudo em Branco"):
-        st.download_button(
-            label="Baixar Modelo de Laudo",
-            data=open("modelo_laudo_pcd.docx", "rb").read(),
-            file_name="modelo_laudo_pcd.docx",
-            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        )
+    # Formulário para preenchimento do laudo
+    with st.form("form_laudo_pcd"):
+        st.subheader("Dados da Empresa")
+        empresa_razao_social = st.text_input("Razão Social da Empresa")
+        empresa_endereco = st.text_input("Endereço da Empresa")
+        empresa_telefone = st.text_input("Telefone da Empresa")
+        
+        st.subheader("Dados do Trabalhador")
+        nome = st.text_input("Nome Completo")
+        matricula = st.text_input("Matrícula")
+        data_nascimento = st.date_input("Data de Nascimento")
+        rg = st.text_input("RG")
+        sexo = st.radio("Sexo", ["Feminino", "Masculino"])
+        
+        st.subheader("Avaliação Médica")
+        origem_deficiencia = st.selectbox("Origem da Deficiência", [
+            "Acidente - Trabalho",
+            "Acidente - Comum",
+            "Adquirida",
+            "Congênita",
+            "Doença",
+            "Hereditária",
+            "Pós Operatório"
+        ])
+        cid = st.text_input("CID-10")
+        data_manifestacao = st.date_input("Data de início das manifestações")
+        pcd_reabilitado = st.radio("PCD Reabilitado", ["Sim", "Não"])
+        
+        st.subheader("Descrição da Deficiência")
+        alteracoes = st.text_area("Descrição detalhada das alterações físicas, sensoriais, intelectuais e mentais")
+        limitacoes = st.text_area("Descrição das limitações funcionais para atividades da vida diária e social")
+        
+        st.subheader("Tipo de Deficiência")
+        deficiencia_fisica = st.checkbox("Deficiência Física")
+        deficiencia_auditiva = st.checkbox("Deficiência Auditiva")
+        deficiencia_visual = st.checkbox("Deficiência Visual")
+        deficiencia_intelectual = st.checkbox("Deficiência Intelectual")
+        deficiencia_mental = st.checkbox("Deficiência Mental")
+        deficiencia_multipla = st.checkbox("Deficiência Múltipla")
+        
+        if st.form_submit_button("Gerar Laudo PCD"):
+            # Criar um novo PDF com os dados preenchidos
+            from reportlab.pdfgen import canvas
+            from io import BytesIO
+            
+            buffer = BytesIO()
+            c = canvas.Canvas(buffer)
+            
+            # Página 1
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(100, 800, "FORTNEER ENGENHARIA EIRELI")
+            c.drawString(100, 785, empresa_endereco)
+            c.drawString(100, 770, f"Fone: {empresa_telefone}")
+            
+            c.setFont("Helvetica-Bold", 16)
+            c.drawString(100, 740, "LAUDO CARACTERIZADOR DE DEFICIÊNCIA")
+            
+            c.setFont("Helvetica", 10)
+            c.drawString(100, 720, "De acordo com o Decreto 3.298/1999 e com a Instrução Normativa SIT/ MTE n.º 98 de 15/08/2012,")
+            c.drawString(100, 705, "observados os dispositivos da Convenção sobre os Direitos das Pessoas com deficiência e Lei 12764/12")
+            
+            # Tabela de identificação
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(100, 680, "Identificação Empresa/Razão Social")
+            c.drawString(350, 680, empresa_razao_social)
+            
+            c.drawString(100, 660, "Nome")
+            c.drawString(350, 660, nome)
+            
+            c.drawString(100, 640, "Matrícula")
+            c.drawString(350, 640, matricula)
+            
+            c.drawString(100, 620, "Data Nascimento")
+            c.drawString(350, 620, str(data_nascimento))
+            
+            c.drawString(100, 600, "Documento RG:")
+            c.drawString(350, 600, rg)
+            
+            c.drawString(100, 580, f"Sexo ({'X' if sexo == 'Feminino' else ' '})Feminino ({'X' if sexo == 'Masculino' else ' '})Masculino")
+            
+            # Avaliação
+            c.drawString(100, 550, f"Origem Deficiência ({'X'}) {origem_deficiencia}")
+            c.drawString(100, 530, f"CID {cid} Início das manifestações {data_manifestacao}")
+            c.drawString(100, 510, f"PCD Reabilitado ({'X' if pcd_reabilitado == 'Sim' else ' '}) Sim ({'X' if pcd_reabilitado == 'Não' else ' '}) Não")
+            
+            # Descrições
+            c.drawString(100, 480, "Descrição detalhada das alterações físicas, sensoriais, intelectuais e mentais:")
+            textobject = c.beginText(100, 460)
+            for line in alteracoes.split('\n'):
+                textobject.textLine(line)
+            c.drawText(textobject)
+            
+            c.drawString(100, 400, "Descrição das limitações funcionais para atividades da vida diária e social:")
+            textobject = c.beginText(100, 380)
+            for line in limitacoes.split('\n'):
+                textobject.textLine(line)
+            c.drawText(textobject)
+            
+            # Tipos de deficiência
+            c.drawString(100, 320, "I - Deficiência Física")
+            c.drawString(120, 300, f"({'X' if deficiencia_fisica else ' '}) Alteração Física - [descrição]")
+            
+            c.drawString(100, 270, "II - Deficiência Auditiva")
+            c.drawString(120, 250, f"({'X' if deficiencia_auditiva else ' '}) Perda Auditiva - [descrição]")
+            
+            # [...] Continuar com os outros tipos de deficiência
+            
+            c.showPage()  # Página 2
+            
+            # Termo de ciência
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(100, 800, "FORTNEER ENGENHARIA EIRELI")
+            c.drawString(100, 785, empresa_endereco)
+            c.drawString(100, 770, f"Fone: {empresa_telefone}")
+            
+            c.setFont("Helvetica", 12)
+            c.drawString(100, 730, "Estou ciente de que estou sendo enquadrado na cota de pessoas com deficiência/reabilitados da empresa.")
+            c.drawString(100, 710, "Autorizo a apresentação deste Laudo e exames ao Ministério do Trabalho e Emprego.")
+            
+            c.drawString(100, 670, "Assinatura do Avaliado: ___________________________")
+            c.drawString(100, 650, "Data: ____/____/____")
+            
+            c.save()
+            
+            buffer.seek(0)
+            st.success("Laudo gerado com sucesso!")
+            
+            st.download_button(
+                label="Baixar Laudo PCD",
+                data=buffer,
+                file_name=f"laudo_pcd_{nome.replace(' ', '_')}.pdf",
+                mime="application/pdf"
+            )
 
 # Rodapé
 st.markdown("---")
