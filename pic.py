@@ -170,8 +170,7 @@ def render_sidebar():
             <p>Versão: 2.1.0 (Maio/2025)</p>
             
             <h4>📞 Contato</h4>
-            <p>suporte@fortneer.com.br</p>
-            <p>(48) 99999-9999</p>
+            <p>(48) 3420-0566</p>
         </div>
         """, unsafe_allow_html=True)
         
