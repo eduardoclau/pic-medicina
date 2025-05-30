@@ -14,23 +14,106 @@ st.set_page_config(
 
 # Estilos CSS personalizados
 def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    try:
+        with open(file_name) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    except:
+        # CSS padrão se o arquivo não existir
+        st.markdown("""
+        <style>
+            .header-subtitle {
+                font-size: 1.1rem;
+                color: #555;
+                margin-top: -10px;
+            }
+            .header-location {
+                font-style: italic;
+                color: #777;
+            }
+            .sidebar-header {
+                margin-bottom: 20px;
+            }
+            .quick-info {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 10px;
+                margin-top: 20px;
+            }
+            .status-box {
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 15px;
+                border-left: 5px solid;
+            }
+            .status-box.green {
+                background-color: #e6f7e6;
+                border-color: #28a745;
+            }
+            .status-box.yellow {
+                background-color: #fff8e6;
+                border-color: #ffc107;
+            }
+            .status-box.red {
+                background-color: #ffebee;
+                border-color: #dc3545;
+            }
+            .status-dot {
+                height: 15px;
+                width: 15px;
+                border-radius: 50%;
+                display: inline-block;
+                margin-right: 10px;
+            }
+            .green .status-dot { background-color: #28a745; }
+            .yellow .status-dot { background-color: #ffc107; }
+            .red .status-dot { background-color: #dc3545; }
+            .status-text {
+                display: inline-block;
+                vertical-align: top;
+                width: calc(100% - 30px);
+            }
+            .grid-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin: 15px 0;
+            }
+            .grid-item {
+                background-color: #f8f9fa;
+                padding: 10px;
+                border-radius: 5px;
+                border-left: 3px solid #6c757d;
+            }
+            .info-box {
+                background-color: #e7f5ff;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 15px 0;
+                border-left: 5px solid #1c7ed6;
+            }
+            .footer {
+                margin-top: 50px;
+                padding: 20px 0;
+                text-align: center;
+                color: #666;
+                font-size: 0.9rem;
+            }
+        </style>
+        """, unsafe_allow_html=True)
 
 local_css("styles.css")
-
-# Função para carregar imagem como base64 (para performance)
-@st.cache_data
-def get_img_as_base64(file):
-    with open(file, "rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
 
 # Cabeçalho moderno
 def render_header():
     col1, col2 = st.columns([1, 4])
     with col1:
-        st.image("logo_fortneer.png", width=120)  # Substituir pelo logo real
+        # Placeholder para logo (removida a dependência de arquivo)
+        st.markdown("""
+        <div style="width:120px; height:120px; background:#eee; display:flex; 
+                    align-items:center; justify-content:center; border-radius:10px;">
+            LOGO
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
         st.title("Protocolo de Interpretação e Conduta Médica")
         st.markdown("""
@@ -45,7 +128,13 @@ def render_header():
 # Menu lateral moderno
 def render_sidebar():
     with st.sidebar:
-        st.image("logo_medical.png", width=120)  # Logo médico
+        # Placeholder para logo médico (removida a dependência de arquivo)
+        st.markdown("""
+        <div style="width:120px; height:120px; background:#eee; display:flex; 
+                    align-items:center; justify-content:center; border-radius:10px; margin:0 auto;">
+            LOGO
+        </div>
+        """, unsafe_allow_html=True)
         
         st.markdown("""
         <div class="sidebar-header">
@@ -468,9 +557,6 @@ def render_footer():
     st.markdown("""
     <div class="footer">
         <div class="footer-content">
-            <div class="footer-logo">
-                <img src="data:image/png;base64,{}" width="80">
-            </div>
             <div class="footer-info">
                 <h4>FORTNEER - Assessoria para Regularização Empresarial</h4>
                 <p>Sombrio & Morro da Fumaça - SC</p>
@@ -478,7 +564,7 @@ def render_footer():
             </div>
         </div>
     </div>
-    """.format(get_img_as_base64("logo_small.png"), datetime.now().strftime("%d/%m/%Y")), 
+    """.format(datetime.now().strftime("%d/%m/%Y")), 
     unsafe_allow_html=True)
 
 # Página principal
