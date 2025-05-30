@@ -166,11 +166,11 @@ def render_sidebar():
         # Seção de informações rápidas
         st.markdown("""
         <div class="quick-info">
-            <h4>📅 Atualização</h4>
-            <p>Versão: 2.1.0 (Maio/2025)</p>
+            📅 Atualização
+            Versão: 1.0 (Maio/2025)
             
-            <h4>📞 Contato</h4>
-            <p>(48) 3420-0566</p>
+            📞 Contato
+            (48) 3420-0566
         </div>
         """, unsafe_allow_html=True)
         
